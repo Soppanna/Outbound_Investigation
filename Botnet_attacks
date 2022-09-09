@@ -1,0 +1,29 @@
+netstat -ntu
+    netstat -antu >> all active 
+    netstat -antu | grep :80  >> port
+    netstat -antu |  grep -v LISTEN >> foreign IP connection
+    netstat -antu |  grep -v LISTEN | awk '{print $5}'
+    netstat -antu | grep :80 | grep -v LISTEN | awk '{print $5}' | cut -d: -f1 >> ip only on port
+    netstat -antu | grep :80 | grep -v LISTEN | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn >> ip coount
+------------------------------
+https://underhood.co.in/detecting-outbound-attacks/
+https://stackoverflow.com/questions/48198/how-can-you-find-out-which-process-is-listening-on-a-tcp-or-udp-port-on-windows
+https://www.interfacett.com/blogs/identifying-inbound-and-outbound-ports-using-netstat/
+-------------------------
+netstat -putwc | grep EST
+====================
+To find all port in linux
+lsof -i -P -n | grep
+netstat -plunt
+=====================
+To find our server connected to outbound IP port
+=============
+netstat -atn | tr -s ' '| cut -f5 -d ' ' | grep -v '127.0.0.1'
+check process Id allocated to particular port 
+===============
+lsof -i tcp:80 -P -R
+===============
+Check active Outbout request send Manupulate command to particular services ==> Time ! sec
+================
+netstat -acp 1 | grep tcp| grep http |grep SYN_SENT
+================
